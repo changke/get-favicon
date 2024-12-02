@@ -1,4 +1,4 @@
-import {Hono} from 'jsr:@hono/hono';
+import {Hono} from '@hono/hono';
 import type {Favicon} from "./types.ts";
 import {pickBestFavicon, extractFavicons, convertBlobToBase64, getCachedFile, saveIconAsFile, serveDefaultIconFile, fillIconData} from './utils.ts';
 

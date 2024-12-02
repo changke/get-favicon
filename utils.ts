@@ -1,4 +1,4 @@
-import {DOMParser} from 'jsr:@b-fuze/deno-dom';
+import {DOMParser} from '@b-fuze/deno-dom';
 import type {Favicon} from "./types.ts";
 
 const selector = 'link[rel*="icon"][href]'; // will also match "apple-touch-icon" but okay
