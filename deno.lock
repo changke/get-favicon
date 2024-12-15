@@ -5,21 +5,20 @@
     "jsr:@b-fuze/deno-dom@~0.1.48": "0.1.48",
     "jsr:@denosaurs/plug@1.0.3": "1.0.3",
     "jsr:@hono/hono@*": "4.6.3",
-    "jsr:@hono/hono@^4.6.12": "4.6.12",
-    "jsr:@std/assert@1": "1.0.6",
-    "jsr:@std/assert@^1.0.8": "1.0.8",
+    "jsr:@hono/hono@^4.6.14": "4.6.14",
+    "jsr:@std/assert@^1.0.9": "1.0.9",
     "jsr:@std/assert@~0.213.1": "0.213.1",
+    "jsr:@std/async@^1.0.9": "1.0.9",
     "jsr:@std/data-structures@^1.0.4": "1.0.4",
     "jsr:@std/encoding@0.213.1": "0.213.1",
     "jsr:@std/fmt@0.213.1": "0.213.1",
     "jsr:@std/fs@0.213.1": "0.213.1",
-    "jsr:@std/fs@^1.0.5": "1.0.6",
-    "jsr:@std/internal@^1.0.4": "1.0.5",
+    "jsr:@std/fs@^1.0.6": "1.0.6",
     "jsr:@std/internal@^1.0.5": "1.0.5",
     "jsr:@std/path@0.213.1": "0.213.1",
     "jsr:@std/path@^1.0.8": "1.0.8",
     "jsr:@std/path@~0.213.1": "0.213.1",
-    "jsr:@std/testing@^1.0.5": "1.0.5"
+    "jsr:@std/testing@^1.0.6": "1.0.6"
   },
   "jsr": {
     "@b-fuze/deno-dom@0.1.48": {
@@ -40,23 +39,20 @@
     "@hono/hono@4.6.3": {
       "integrity": "a1f5a18cd12a0db54755b0461dd5a4e2d93a6f85403073eb710103eacc42daf3"
     },
-    "@hono/hono@4.6.12": {
-      "integrity": "fa0b97fa7c3292f0d9957109ac07a475fe485868795b71b8e3114c284152cdb5"
+    "@hono/hono@4.6.14": {
+      "integrity": "b39a5488266adf448fb1081bc3071a0d05145e72f3ab3ff83cf140e780c6c1de"
     },
     "@std/assert@0.213.1": {
       "integrity": "24c28178b30c8e0782c18e8e94ea72b16282207569cdd10ffb9d1d26f2edebfe"
     },
-    "@std/assert@1.0.6": {
-      "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
+    "@std/assert@1.0.9": {
+      "integrity": "a9f0c611a869cc791b26f523eec54c7e187aab7932c2c8e8bea0622d13680dcd",
       "dependencies": [
-        "jsr:@std/internal@^1.0.4"
+        "jsr:@std/internal"
       ]
     },
-    "@std/assert@1.0.8": {
-      "integrity": "ebe0bd7eb488ee39686f77003992f389a06c3da1bbd8022184804852b2fa641b",
-      "dependencies": [
-        "jsr:@std/internal@^1.0.5"
-      ]
+    "@std/async@1.0.9": {
+      "integrity": "c6472fd0623b3f3daae023cdf7ca5535e1b721dfbf376562c0c12b3fb4867f91"
     },
     "@std/data-structures@1.0.4": {
       "integrity": "fa0e20c11eb9ba673417450915c750a0001405a784e2a4e0c3725031681684a0"
@@ -95,13 +91,14 @@
     "@std/path@1.0.8": {
       "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
     },
-    "@std/testing@1.0.5": {
-      "integrity": "6e693cbec94c81a1ad3df668685c7ba8e20742bb10305bc7137faa5cf16d2ec4",
+    "@std/testing@1.0.6": {
+      "integrity": "9192ded2d34065f4c959fdc1921fe836770abb9194410c2cc8a0fff4eff5c893",
       "dependencies": [
-        "jsr:@std/assert@^1.0.8",
+        "jsr:@std/assert@^1.0.9",
+        "jsr:@std/async",
         "jsr:@std/data-structures",
-        "jsr:@std/fs@^1.0.5",
-        "jsr:@std/internal@^1.0.5",
+        "jsr:@std/fs@^1.0.6",
+        "jsr:@std/internal",
         "jsr:@std/path@^1.0.8"
       ]
     }
@@ -109,9 +106,9 @@
   "workspace": {
     "dependencies": [
       "jsr:@b-fuze/deno-dom@~0.1.48",
-      "jsr:@hono/hono@^4.6.12",
-      "jsr:@std/assert@1",
-      "jsr:@std/testing@^1.0.5"
+      "jsr:@hono/hono@^4.6.14",
+      "jsr:@std/assert@^1.0.9",
+      "jsr:@std/testing@^1.0.6"
     ]
   }
 }
