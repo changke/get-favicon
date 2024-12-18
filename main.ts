@@ -1,6 +1,7 @@
 import {Hono} from '@hono/hono';
 import type {Favicon} from "./types.ts";
 import {pickBestFavicon, extractFavicons, convertBlobToBase64, getCachedFile, saveIconAsFile, serveDefaultIconFile, fillIconData} from './utils.ts';
+import puppeteer from 'puppeteer';
 
 /**
  * Get the domain name from URL (ignore URL path)
@@ -29,6 +30,38 @@ const demoHtml = (icon: Favicon) => `<!DOCTYPE html>
     </body>
   </html>
 `;
+
+// Setup Puppeteer
+const browser = await puppeteer.launch();
+const page = await browser.newPage();
+
+page.on('console', msg => console.info(msg.text()));
+
+await page.goto('about:blank');
+console.log('Puppeteer started.');
+
+await page.exposeFunction('readTextFile', async (filePath: string) => {
+  try {
+    const c = await Deno.readTextFile(filePath);
+    return c;
+  } catch (err) {
+    console.error((err as Error).message);
+  }
+});
+
+const puppeteerEval = async (html: string) => {
+  console.log('Calling pptr-js-eval()...');
+  // @ts-ignore: puppeteer
+  const result = await page.evaluate(async htmlSrc => {
+    console.log('Inside pptr-js-eval()...');
+    // @ts-ignore: puppeteer
+    const funcSrc = await window.readTextFile('./extractor.js');
+    // @ts-ignore: puppeteer
+    const func = (await import(`data:text/javascript,${funcSrc}`)).default;
+    return func(htmlSrc, new DOMParser());
+  }, html);
+  return result as Favicon[];
+};
 
 const app = new Hono();
 
@@ -65,7 +98,7 @@ const fallbackIcon = async (message: string): Promise<Favicon> => {
   };
 };
 
-const getTheIcon = async (domain: string): Promise<Favicon> => {
+const getTheIcon = async (domain: string, handler: 'deno' | 'pptr' = 'pptr'): Promise<Favicon> => {
   const hostDomain = getHostDomain(domain);
   let theIcon;
   if (hostDomain) {
@@ -85,7 +118,7 @@ const getTheIcon = async (domain: string): Promise<Favicon> => {
       } else {
         const html = await resp.text();
         // extract favicons
-        const icons = extractFavicons(html);
+        const icons = (handler === 'deno') ? extractFavicons(html) : await puppeteerEval(html);
         // pick the best icon
         let bestIcon = pickBestFavicon(icons, hostDomain);
         // set icon image
@@ -127,4 +160,11 @@ app.get('demo/:domain', async ctx => {
   }
 });
 
+Deno.addSignalListener("SIGINT", async () => {
+  await browser.close();
+  console.log('Puppeteer browser closed. Exiting...');
+  Deno.exit();
+});
+
 Deno.serve(app.fetch);
+console.log('Server started.');
